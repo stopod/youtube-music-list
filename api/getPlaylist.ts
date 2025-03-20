@@ -6,7 +6,6 @@ const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORSヘッダー設定
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
@@ -36,13 +35,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .json({ error: "YouTube API Keyが設定されていません" });
     }
 
-    // YouTube Data APIを呼び出してプレイリスト情報を取得
+    // NOTE: https://developers.google.com/youtube/v3/docs/playlistItems?hl=ja
     const playlistResponse = await axios.get(
       `${YOUTUBE_API_URL}/playlistItems`,
       {
         params: {
           part: "snippet,contentDetails",
-          maxResults: 10,
+          maxResults: 12,
           playlistId,
           pageToken: pageToken || undefined,
           key: YOUTUBE_API_KEY,
@@ -59,6 +58,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           item.snippet.thumbnails.default?.url,
         videoId: item.contentDetails.videoId,
         channelTitle: item.snippet.channelTitle,
+        videoOwnerChannelTitle: item.snippet.videoOwnerChannelTitle,
       })
     );
 

@@ -4,6 +4,15 @@ import {
   PlaylistItem as PlaylistItemType,
   PlaylistResponse,
 } from "../types/youtube";
+import {
+  Button,
+  Box,
+  Heading,
+  SimpleGrid,
+  Stack,
+  Center,
+  Text,
+} from "@chakra-ui/react";
 
 const PLAYLIST_ID = "PL1ydbA84LtpK_WBKTZCSZsjqorBo9us2N";
 
@@ -20,7 +29,6 @@ const PlaylistViewer: React.FC = () => {
     try {
       setLoading(true);
 
-      // バックエンドAPIを呼び出す
       const url = pageToken
         ? `/api/getPlaylist?playlistId=${PLAYLIST_ID}&pageToken=${pageToken}`
         : `/api/getPlaylist?playlistId=${PLAYLIST_ID}`;
@@ -62,25 +70,33 @@ const PlaylistViewer: React.FC = () => {
   };
 
   return (
-    <div className="playlist-viewer">
-      <h1>YouTube Music プレイリスト</h1>
+    <Box>
+      <Stack gap={4}>
+        <Heading size={"3xl"}>文化的な生活のプレイリスト</Heading>
 
-      {error && <div className="error-message">{error}</div>}
+        {error && <Text>{error}</Text>}
 
-      <div className="playlist-container">
-        {items.map((item) => (
-          <PlaylistItem key={item.id} item={item} />
-        ))}
-      </div>
+        <SimpleGrid gap={4} columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 4 }}>
+          {items.map((item) => (
+            <PlaylistItem key={item.id} item={item} />
+          ))}
+        </SimpleGrid>
 
-      {loading && <div className="loading">読み込み中...</div>}
-
-      {!loading && hasMore && (
-        <button className="load-more-button" onClick={loadMore}>
-          もっと見る
-        </button>
-      )}
-    </div>
+        <Center>
+          {hasMore && (
+            <Button
+              onClick={loadMore}
+              colorPalette={"pink"}
+              variant="surface"
+              loading={loading}
+              size={"2xl"}
+            >
+              もっとみる
+            </Button>
+          )}
+        </Center>
+      </Stack>
+    </Box>
   );
 };
 

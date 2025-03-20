@@ -4,6 +4,7 @@ export interface PlaylistItem {
   thumbnail: string;
   videoId: string;
   channelTitle: string;
+  videoOwnerChannelTitle: string;
 }
 
 export interface PlaylistResponse {
