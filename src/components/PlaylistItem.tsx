@@ -4,6 +4,7 @@ import {
   CloseButton,
   Dialog,
   Image,
+  Link,
   Portal,
   Text,
   VStack,
@@ -34,16 +35,23 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ item }) => {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>{item.title}</Dialog.Title>
+                <Dialog.Title>
+                  <Link
+                    href={`https://www.youtube.com/watch?v=${item.videoId}`}
+                    target="_blank"
+                  >
+                    {item.title}
+                  </Link>
+                </Dialog.Title>
                 <Dialog.CloseTrigger>
-                  <CloseButton size="sm" />
+                  <CloseButton size="md" />
                 </Dialog.CloseTrigger>
               </Dialog.Header>
               <Dialog.Body>
                 <Center>
                   <iframe
                     title={item.title}
-                    src={`https://www.youtube.com/embed/${item.videoId}`}
+                    src={`https://www.youtube-nocookie.com/embed/${item.videoId}`}
                     allowFullScreen
                   ></iframe>
                 </Center>

@@ -72,7 +72,7 @@ const PlaylistViewer: React.FC = () => {
   return (
     <Box>
       <Stack gap={4}>
-        <Heading size={"3xl"}>文化的な生活のプレイリスト</Heading>
+        <Heading size={"2xl"}>文化的な生活のプレイリスト</Heading>
 
         {error && <Text>{error}</Text>}
 
@@ -89,7 +89,8 @@ const PlaylistViewer: React.FC = () => {
               colorPalette={"pink"}
               variant="surface"
               loading={loading}
-              size={"2xl"}
+              size={"xl"}
+              mb={4}
             >
               もっとみる
             </Button>
